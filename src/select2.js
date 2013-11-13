@@ -119,7 +119,9 @@ angular.module('ui.select2', []).value('uiSelect2Config', {}).directive('uiSelec
               $timeout(function () {
                 elm.select2('val', controller.$viewValue);
                 // Refresh angular to remove the superfluous option
-                elm.trigger('change');
+                if (newVal !== oldVal){ // Don't trigger events for a non-event, it causes all manor of problems with ng-model dirty and pristine settings.
+                  elm.trigger('change');
+                }
               });
             });
           }
